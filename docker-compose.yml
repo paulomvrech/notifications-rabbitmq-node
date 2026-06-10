@@ -1,0 +1,23 @@
+services:
+  rabbitmq:
+    # A tag "management" inclui o painel web de administração.
+    # Você pode trocar por 4-management se quiser a versão mais nova.
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"    # Porta AMQP (é por aqui que a aplicação conversa)
+      - "15672:15672"  # Porta do painel web de administração
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      # Persiste os dados mesmo se o container for recriado
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  rabbitmq_data:
