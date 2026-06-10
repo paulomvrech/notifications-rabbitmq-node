@@ -1,7 +1,6 @@
 services:
   rabbitmq:
     # A tag "management" inclui o painel web de administração.
-    # Você pode trocar por 4-management se quiser a versão mais nova.
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
